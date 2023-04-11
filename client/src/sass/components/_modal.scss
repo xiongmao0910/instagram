@@ -1,0 +1,51 @@
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--bg-modal);
+    z-index: 100;
+
+    &-container {
+        background-color: var(--bg-modal-container);
+        width: min(100% - 2rem, 25rem);
+        border-radius: 0.75rem;
+    }
+
+    &-header {
+        padding: 1rem;
+        text-align: center;
+        border-bottom: thin solid var(--clr-br-modal);
+    }
+
+    &-title {
+        text-transform: capitalize;
+        font-size: var(--fs-400);
+    }
+
+    &-body {
+        padding: var(--padding-modal, 0);
+
+        & > p {
+            padding: 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            border-top: thin solid var(--clr-br-modal);
+            text-transform: capitalize;
+        }
+
+        & > p:first-child {
+            border-color: transparent;
+        }
+    }
+
+    &-content {
+        --gap: 0.75rem;
+        padding: 1rem 2rem;
+    }
+
+    &-icon {
+        font-size: var(--fs-400);
+    }
+}

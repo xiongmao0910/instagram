@@ -1,0 +1,58 @@
+.button,
+button {
+    cursor: pointer;
+    display: inline-flex;
+    padding: 0.5rem 1rem;
+    font-family: var(--ff-button);
+    font-weight: var(--fw-button);
+    line-height: var(--lh-button);
+    border: thin solid var(--clr-border);
+    border-radius: var(--br-button);
+    transition: color 350ms ease, background-color 350ms ease;
+
+    /**
+    * Custom style
+    */
+    background-color: var(--bg);
+    color: var(--clr);
+    text-transform: capitalize;
+
+    &[button-variant='contained'] {
+        --bg: var(--bg-button-contained, var(--bg-button-default));
+        --clr: var(--clr-button-contained, var(--clr-button-default));
+        --clr-border: var(--bg);
+
+        &:hover {
+            --bg: var(
+                --bg-button-contained-hover,
+                var(--bg-button-hover-default)
+            );
+        }
+    }
+
+    &[button-variant='outlined'] {
+        --bg: transparent;
+        --clr: var(--clr-button-outlined, var(--clr-button-default));
+        --clr-border: var(--clr);
+
+        &:hover {
+            --bg: var(--bg-button-outlined-hover, var(--bg-button-default));
+            --clr: var(--clr-button-outlined-hover, var(--clr-button-default));
+            --clr-border: var(--bg);
+        }
+    }
+
+    &[button-color='blue'] {
+        --bg-button-contained: var(--clr-blue-500);
+        --clr-button-contained: var(--clr-white);
+        --bg-button-contained-hover: var(--clr-blue-400);
+        --clr-button-outlined: var(--clr-blue-500);
+        --bg-button-outlined-hover: var(--clr-blue-500);
+        --clr-button-outlined-hover: var(--clr-white);
+    }
+
+    &[data-visible='false'] {
+        opacity: 0.8;
+        pointer-events: none;
+    }
+}

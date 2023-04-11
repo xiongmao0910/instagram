@@ -1,0 +1,11 @@
+.section {
+    flex: 1;
+    overflow-y: auto;
+
+    &-container {
+        width: min(100% - 2rem, var(--width-section));
+        margin-inline: auto;
+        min-height: 100%;
+        padding-block: 2.5rem;
+    }
+}

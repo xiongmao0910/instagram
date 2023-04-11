@@ -1,0 +1,40 @@
+.form {
+    width: min(100% - 2rem, var(--width-form, 30rem));
+    margin-inline: auto;
+    background-color: var(--bg-form);
+    border: 1px solid var(--clr-br-form);
+    border-radius: var(--br-form);
+    padding: 1rem 2rem;
+
+    &-group {
+        width: 100%;
+        position: relative;
+    }
+
+    &-control {
+        border: none;
+        display: block;
+        width: 100%;
+        padding-top: 0.75rem;
+    }
+
+    &-label {
+        text-transform: capitalize;
+        position: absolute;
+        top: 50%;
+        left: 0.75rem;
+        transform: translateY(-50%);
+        padding-inline: 0.25rem;
+        background-color: transparent;
+        transition: all 200ms ease;
+        cursor: text;
+    }
+
+    &-control:not(:placeholder-shown) + &-label,
+    &-control:focus + &-label {
+        transform: translateY(-170%);
+        font-size: var(--fs-200);
+        font-weight: var(--fw-medium);
+        line-height: 1;
+    }
+}

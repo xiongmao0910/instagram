@@ -1,0 +1,78 @@
+@use '../abstracts' as *;
+
+:root {
+    /**
+    * Colors props
+    */
+    --clr-white: #f5f5f5;
+    --clr-black: #000000;
+
+    @each $color, $shade in $colors {
+        @each $prop, $value in $shade {
+            --clr-#{$color}-#{$prop}: #{$value};
+        }
+    }
+
+    /**
+    * Font-family props
+    */
+    --ff-primary: 'Nunito', sans-serif;
+    --ff-secondary: 'PT Sans', sans-serif;
+
+    /**
+    * Font-weight props
+    */
+    @each $prop, $value in $font-weights {
+        --fw-#{$prop}: #{$value};
+    }
+
+    /**
+    * Font-size props
+    */
+    @each $screen-size, $property in $font-sizes {
+        @if $screen-size == small {
+            @each $prop, $value in $property {
+                --fs-#{$prop}: #{$value};
+            }
+        } @else {
+            @include mq(small) {
+                @each $prop, $value in $property {
+                    --fs-#{$prop}: #{$value};
+                }
+            }
+        }
+    }
+
+    /**
+    * Body props
+    */
+    --ff-body: var(--ff-primary);
+    --fs-body: var(--fs-300);
+    --fw-body: var(--fw-regular);
+    --lh-body: 1.4;
+
+    /**
+    * Form props
+    */
+    --bg-form: transparent;
+    --br-form: 0.25rem;
+    --br-form-control: 0.25rem;
+
+    /**
+    * Section props
+    */
+    --width-section: 64rem;
+
+    /**
+    * Button props
+    */
+    --ff-button: var(--ff-secondary);
+    --fw-button: var(--fw-semibold);
+    --lh-button: 1.3;
+    --br-button: 0.5rem;
+
+    /**
+    * Custom props
+    */
+    --clr-option-setting: var(--clr-black);
+}

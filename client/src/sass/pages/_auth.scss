@@ -1,0 +1,36 @@
+@use '../abstracts' as *;
+
+.auth {
+    width: 100%;
+    min-height: 100vh;
+
+    &-logo {
+        text-align: center;
+    }
+
+    &-form {
+        --width-form: 21.875rem;
+        padding-block: 2.25rem;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    }
+
+    &-group {
+        --flow-spacer: 0.5rem;
+        margin-block: 2rem 1rem;
+    }
+
+    &-button {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    &-footer {
+        --width-footer: 21.875rem;
+        width: min(100% - 2rem, var(--width-footer, 30rem));
+        padding-block: 1rem;
+        text-align: center;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+        border: 1px solid var(--clr-grey-100);
+    }
+}

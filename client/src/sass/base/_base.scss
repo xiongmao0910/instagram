@@ -1,0 +1,110 @@
+html {
+    font-size: 100%;
+}
+
+html.light {
+    --bg-body: var(--clr-white);
+    --clr-body: var(--clr-black);
+
+    --clr-br-form: var(--clr-grey-100);
+    --bg-form-control: var(--clr-grey-100);
+    --bg-sidebar-list: var(--clr-grey-100);
+    --bg-sidebar-option: var(--clr-grey-300);
+
+    --clr-logo: var(--clr-black);
+    --clr-br-sidebar: var(--clr-black);
+
+    --bg-button-default: var(--clr-grey-100);
+    --clr-button-default: var(--clr-black);
+    --bg-button-hover-default: var(--clr-grey-200);
+
+    --bg-modal: rgba(0, 0, 0, 0.6);
+    --bg-modal-container: var(--clr-white);
+
+    --clr-br-modal: var(--clr-black);
+
+    --clr-br-profile: var(--clr-grey-100);
+
+    --clr-br-setting: var(--clr-grey-100);
+    --clr-br-setting-option: var(--clr-black);
+}
+
+html.dark {
+    --bg-body: var(--clr-black);
+    --clr-body: var(--clr-white);
+
+    --clr-br-form: var(--clr-grey-500);
+    --bg-form-control: var(--clr-grey-500);
+    --bg-sidebar-list: var(--clr-grey-500);
+
+    --clr-logo: var(--clr-white);
+    --clr-br-sidebar: var(--clr-white);
+
+    --bg-sidebar-option: var(--clr-grey-400);
+
+    --bg-button-default: var(--clr-white);
+    --clr-button-default: var(--clr-black);
+    --bg-button-hover-default: var(--clr-grey-100);
+
+    --bg-modal: rgba(0, 0, 0, 0.6);
+    --bg-modal-container: var(--clr-grey-500);
+
+    --clr-br-modal: var(--clr-grey-300);
+
+    --clr-br-profile: var(--clr-grey-500);
+
+    --clr-br-setting: var(--clr-grey-500);
+    --clr-br-setting-option: var(--clr-white);
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--clr-body);
+    font-family: var(--ff-body);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-body);
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+input,
+button,
+textarea {
+    outline: none;
+}
+
+input,
+select,
+textarea {
+    background-color: var(--bg-form-control);
+    color: var(--clr-form-control);
+    padding: 0.25rem 1rem;
+    border-radius: var(--br-form-control);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+    --moz-appearance: textfield;
+}
+
+ul,
+ol {
+    list-style: none;
+}
