@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema(
     {
         media: [{ type: String, require: true }],
-        content: { type: String, max: 500, default: '' },
+        caption: { type: String, max: 500, default: '' },
         userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
         likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
     },

@@ -1,5 +1,5 @@
 // Import library
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import {
     HomeTwo,
@@ -12,16 +12,25 @@ import {
     Setting,
     BookmarkOne,
     Logout,
+    AddPicture,
 } from '@icon-park/react';
 
 // Import components
 import { useAuth, useTheme } from '../contexts';
 import Modal from './Modal';
+import Slide from './Slide';
+import defaultAvatar from '../assets/default_avatar.jpg';
+import { convertImageToBase64 } from '../utils';
+import { createPost } from '../api';
 
 const Sidebar = () => {
     const { currentUser, signout } = useAuth();
     const { theme, changeTheme, isOpen, setIsOpen } = useTheme();
 
+    const photosRef = useRef();
+    const captionRef = useRef();
+
+    const [media, setMedia] = useState([]);
     const [isOpenModal, setIsOpenModal] = useState(false);
 
     /**
@@ -33,6 +42,67 @@ const Sidebar = () => {
 
     function handleSignOut() {
         signout();
+    }
+
+    function handleCloseModal() {
+        if (media.length) {
+            setMedia([]);
+        }
+
+        setIsOpenModal(false);
+    }
+
+    function handleSelectPhotos() {
+        photosRef.current.click();
+    }
+
+    async function handleFileChange() {
+        const mediaArr = [];
+        const files = photosRef.current.files;
+
+        for (let i = 0; i < files.length; i++) {
+            const convertImgStr = await convertImageToBase64(files.item(i));
+            if (!media.includes(convertImgStr)) {
+                mediaArr.push(convertImgStr);
+            }
+        }
+
+        if (mediaArr.length) {
+            setMedia((prev) => {
+                return [...prev, ...mediaArr];
+            });
+        }
+    }
+
+    async function handleSharePost() {
+        // TODO Validation
+        if (!media.length || !captionRef.current.value) {
+            // ? Notification: you have not entered the data
+            console.log('Bạn chưa nhập đủ dữ liệu');
+            return;
+        }
+
+        // TODO Define data
+        const data = {
+            media,
+            caption: captionRef.current.value,
+            userId: currentUser.id,
+        };
+
+        const { success, msg } = await createPost(data);
+
+        if (success) {
+            // TODO Notification: created post successfully
+            console.log(msg);
+
+            // TODO Close modal
+            handleCloseModal();
+
+            return;
+        }
+
+        // TODO Notification: created post failed
+        console.log(msg);
     }
 
     return (
@@ -142,21 +212,73 @@ const Sidebar = () => {
                 </div>
             </aside>
             {isOpenModal && (
-                <Modal title="Create new post">
-                    <div className="d-flex">
-                        <div>
-                            <p>Select file in your computer</p>
+                <Modal title="Create new post" size="xs">
+                    <div className="write d-flex">
+                        <div className="write-media">
+                            {!media.length && (
+                                <div className="write-media-select d-flex items-center justify-center flex-column">
+                                    <div className="write-media-icon">
+                                        <AddPicture />
+                                    </div>
+                                    <button
+                                        button-variant="contained"
+                                        button-color="blue"
+                                        onClick={handleSelectPhotos}
+                                    >
+                                        select from computer
+                                    </button>
+                                    <input
+                                        type="file"
+                                        id="file"
+                                        ref={photosRef}
+                                        accept="image/*"
+                                        multiple="multiple"
+                                        onChange={handleFileChange}
+                                        style={{ display: 'none' }}
+                                    />
+                                </div>
+                            )}
+                            {media.length && <Slide media={media} />}
                         </div>
-                        <div>
-                            <p>Write content</p>
-                            <div className="d-flex">
-                                <p className="text-blue-300">share</p>
-                                <p
-                                    onClick={() => setIsOpenModal(false)}
-                                    className="text-red-300"
+                        <div className="write-content flow">
+                            <div className="d-flex write-info">
+                                <div className="write-img">
+                                    <img
+                                        className="img-fluid"
+                                        src={
+                                            currentUser.photoURL
+                                                ? currentUser.photoURL
+                                                : defaultAvatar
+                                        }
+                                        alt={currentUser.username}
+                                    />
+                                </div>
+                                <div className="write-username fw-bold">
+                                    {currentUser.username}
+                                </div>
+                            </div>
+                            <textarea
+                                name="caption"
+                                id="caption"
+                                ref={captionRef}
+                                className="write-control"
+                                placeholder="Write a caption..."
+                            ></textarea>
+                            <div className="write-action d-flex items-center">
+                                <button
+                                    button-variant="contained"
+                                    button-color="blue"
+                                    onClick={handleSharePost}
+                                >
+                                    share
+                                </button>
+                                <button
+                                    onClick={handleCloseModal}
+                                    button-variant="contained"
+                                    button-color="red"
                                 >
                                     discard
-                                </p>
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -4,6 +4,7 @@ import {
     signInWithFormData,
 } from './auth';
 import { getProfile, updateProfile, follow } from './user';
+import { createPost } from './post';
 
 export {
     getUserByToken,
@@ -12,4 +13,5 @@ export {
     getProfile,
     updateProfile,
     follow,
+    createPost,
 };

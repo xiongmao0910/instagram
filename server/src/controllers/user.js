@@ -33,6 +33,8 @@ class UserController {
                     });
                 }
 
+                const isFollowedReq = user.followerReq.length ? true : false;
+
                 const data = {
                     id: user._id,
                     fullname: user.fullname,
@@ -46,6 +48,7 @@ class UserController {
                     followingCount: user.following.length,
                     createdAt: user.createdAt,
                     updatedAt: user.updatedAt,
+                    isFollowedReq,
                 };
 
                 // * Send data
@@ -151,6 +154,8 @@ class UserController {
             { expiresIn: '7d' }
         );
 
+        const isFollowedReq = user.followerReq.length ? true : false;
+
         const data = {
             id: user._id,
             fullname: user.fullname,
@@ -164,6 +169,7 @@ class UserController {
             followingCount: user.following.length,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
+            isFollowedReq,
         };
 
         // * Send accessToken with user data

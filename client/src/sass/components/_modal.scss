@@ -9,8 +9,16 @@
 
     &-container {
         background-color: var(--bg-modal-container);
-        width: min(100% - 2rem, 25rem);
+        width: min(100% - 2rem, var(--width-modal-container, 25rem));
         border-radius: 0.75rem;
+
+        &[data-size-modal='sm'] {
+            --width-modal-container: 25rem;
+        }
+
+        &[data-size-modal='xs'] {
+            --width-modal-container: 51.5rem;
+        }
     }
 
     &-header {
