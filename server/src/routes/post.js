@@ -8,6 +8,8 @@ const postController = require('../controllers/post');
 const router = express.Router();
 
 // Define routes
+router.get('/get-all/:userId', postController.index);
+router.get('/get/:id', postController.get);
 router.post('/create', postController.create);
 
 module.exports = router;

@@ -8,6 +8,7 @@ import { useAuth } from '../../contexts';
 import defaultAvatar from '../../assets/default_avatar.jpg';
 import { Modal, PostGallery } from '../../components';
 import { convertImageToBase64 } from '../../utils';
+import { getAllPost } from '../../api';
 
 const Profile = () => {
     // TODO Get username on URL -> domain/:username/
@@ -22,11 +23,13 @@ const Profile = () => {
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [page, setPage] = useState('posts');
     const [user, setUser] = useState();
+    const [posts, setPosts] = useState();
 
     /**
      * Method
      */
     async function getInfo(uname) {
+        let userId = currentUser.id;
         // TODO Check if your info page
         if (currentUser && currentUser.username !== uname) {
             const { success, msg, data } = await getUserByUsername(
@@ -38,6 +41,7 @@ const Profile = () => {
             if (success) {
                 // TODO Save data user
                 setUser(data);
+                userId = data.id;
             } else {
                 // TODO Notification: user not found
                 console.log(msg);
@@ -48,6 +52,10 @@ const Profile = () => {
             // TODO Save data user
             setUser(currentUser);
         }
+
+        // TODO Save posts of user
+        const { data } = await getAllPost(userId);
+        setPosts(data);
 
         setLoading(false);
     }
@@ -234,7 +242,7 @@ const Profile = () => {
                                 </div>
                                 <div className="profile-count d-flex items-center">
                                     <div className="profile-count-post">
-                                        0 posts
+                                        {posts.postCount} posts
                                     </div>
                                     <div className="profile-count-follower">
                                         {user.followerCount} follower
@@ -271,7 +279,9 @@ const Profile = () => {
                                             <p>tagged</p>
                                         </div>
                                     </div>
-                                    {page === 'posts' && <PostGallery />}
+                                    {page === 'posts' && (
+                                        <PostGallery posts={posts.posts} />
+                                    )}
                                 </>
                             )}
                             {user.id !== currentUser.id && user.private && (

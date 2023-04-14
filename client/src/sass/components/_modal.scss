@@ -8,6 +8,7 @@
     z-index: 100;
 
     &-container {
+        position: relative;
         background-color: var(--bg-modal-container);
         width: min(100% - 2rem, var(--width-modal-container, 25rem));
         border-radius: 0.75rem;
@@ -19,12 +20,24 @@
         &[data-size-modal='xs'] {
             --width-modal-container: 51.5rem;
         }
+
+        &[data-size-modal='xxs'] {
+            --width-modal-container: 72rem;
+        }
     }
 
     &-header {
         padding: 1rem;
         text-align: center;
         border-bottom: thin solid var(--clr-br-modal);
+    }
+
+    &-close {
+        font-size: var(--fs-400);
+        position: absolute;
+        top: -1rem;
+        right: -11rem;
+        cursor: pointer;
     }
 
     &-title {

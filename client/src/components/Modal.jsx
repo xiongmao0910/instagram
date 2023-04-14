@@ -10,9 +10,11 @@ const Modal = ({ title, children, size }) => {
                 className="modal-container"
                 data-size-modal={size ? size : 'sm'}
             >
-                <div className="modal-header">
-                    <div className="modal-title fw-semibold">{title}</div>
-                </div>
+                {title && (
+                    <div className="modal-header">
+                        <div className="modal-title fw-semibold">{title}</div>
+                    </div>
+                )}
                 <div className="modal-body">{children}</div>
             </div>
         </div>

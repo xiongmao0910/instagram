@@ -1,0 +1,85 @@
+.post {
+    height: 40rem;
+    display: flex;
+
+    &-media {
+        flex: 55%;
+    }
+
+    &-content {
+        flex: 45%;
+        display: flex;
+        flex-direction: column;
+
+        & > * {
+            padding: 0.75rem 1rem;
+        }
+
+        & > *:not(:last-child) {
+            border-bottom: thin solid var(--clr-br-modal);
+        }
+    }
+
+    &-author {
+        --gap: 0.5rem;
+    }
+
+    &-avatar {
+        width: 2rem;
+        aspect-ratio: 1;
+        border-radius: 100%;
+        overflow: hidden;
+    }
+
+    &-caption {
+        --flow-spacer: 0.25rem;
+    }
+
+    &-comments {
+        --flow-spacer: 1rem;
+        flex: 1;
+        display: grid;
+        gap: 1rem;
+        overflow: auto;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    &-icon {
+        cursor: pointer;
+        line-height: 0.95;
+
+        & > * {
+            display: inline-block;
+            line-height: 0.64;
+            font-size: var(--fs-400);
+        }
+    }
+
+    &-action {
+        &-icon {
+            margin-bottom: 0.5rem;
+            --gap: 1rem;
+        }
+    }
+
+    &-controls {
+        input {
+            flex: 1;
+            padding: 0;
+            background-color: transparent;
+            border: none;
+        }
+
+        div {
+            cursor: pointer;
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
+    }
+}
