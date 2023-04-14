@@ -101,6 +101,15 @@
         }
     }
 
+    &-count {
+        &-following,
+        &-follower {
+            &[data-cursor='true'] {
+                cursor: pointer;
+            }
+        }
+    }
+
     &-private {
         padding: 2.5rem;
         border: thin solid var(--clr-br-profile);

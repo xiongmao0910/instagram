@@ -56,4 +56,30 @@ async function follow({
     }
 }
 
-export { getProfile, updateProfile, follow };
+async function getFollower(username) {
+    try {
+        const response = await privateInstance.get(
+            `/user/get-follower/${username}`
+        );
+
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return error.response.data;
+    }
+}
+
+async function getFollowing(username) {
+    try {
+        const response = await privateInstance.get(
+            `/user/get-following/${username}`
+        );
+
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return error.response.data;
+    }
+}
+
+export { getProfile, updateProfile, follow, getFollower, getFollowing };

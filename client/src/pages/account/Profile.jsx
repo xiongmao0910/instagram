@@ -6,7 +6,7 @@ import { GridNine, VideoTwo, PeopleBottomCard } from '@icon-park/react';
 // Import components
 import { useAuth } from '../../contexts';
 import defaultAvatar from '../../assets/default_avatar.jpg';
-import { Modal, PostGallery } from '../../components';
+import { Modal, PostGallery, FollowModal } from '../../components';
 import { convertImageToBase64 } from '../../utils';
 import { getAllPost } from '../../api';
 
@@ -21,6 +21,8 @@ const Profile = () => {
 
     const [loading, setLoading] = useState(true);
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const [isOpenFollowerModal, setIsOpenFollowerModal] = useState(false);
+    const [isOpenFollowingModal, setIsOpenFollowingModal] = useState(false);
     const [page, setPage] = useState('posts');
     const [user, setUser] = useState();
     const [posts, setPosts] = useState();
@@ -128,6 +130,24 @@ const Profile = () => {
                 };
             });
         }
+    }
+
+    async function handleShowFollowerList() {
+        if (currentUser.username !== user.username && !user.isFollowed) {
+            console.log('you cant see user follower list');
+            return;
+        }
+
+        setIsOpenFollowerModal(true);
+    }
+
+    async function handleShowFollowingList() {
+        if (currentUser.username !== user.username && !user.isFollowed) {
+            console.log('you cant see user follower list');
+            return;
+        }
+
+        setIsOpenFollowingModal(true);
     }
 
     /**
@@ -244,10 +264,28 @@ const Profile = () => {
                                     <div className="profile-count-post">
                                         {posts.postCount} posts
                                     </div>
-                                    <div className="profile-count-follower">
+                                    <div
+                                        className="profile-count-follower"
+                                        data-cursor={
+                                            currentUser.username ===
+                                                user.username || user.isFollowed
+                                                ? 'true'
+                                                : ''
+                                        }
+                                        onClick={handleShowFollowerList}
+                                    >
                                         {user.followerCount} follower
                                     </div>
-                                    <div className="profile-count-following">
+                                    <div
+                                        className="profile-count-following"
+                                        data-cursor={
+                                            currentUser.username ===
+                                                user.username || user.isFollowed
+                                                ? 'true'
+                                                : ''
+                                        }
+                                        onClick={handleShowFollowingList}
+                                    >
                                         {user.followingCount} following
                                     </div>
                                 </div>
@@ -313,6 +351,22 @@ const Profile = () => {
                         cancel
                     </p>
                 </Modal>
+            )}
+            {isOpenFollowerModal && (
+                <FollowModal
+                    username={user.username}
+                    title="followers"
+                    type="follower"
+                    setModal={setIsOpenFollowerModal}
+                />
+            )}
+            {isOpenFollowingModal && (
+                <FollowModal
+                    username={user.username}
+                    title="following"
+                    type="following"
+                    setModal={setIsOpenFollowingModal}
+                />
             )}
         </>
     );

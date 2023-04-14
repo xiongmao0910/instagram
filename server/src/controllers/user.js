@@ -486,6 +486,78 @@ class UserController {
                 .json({ success: false, msg: 'Có lỗi gì đó...!' });
         }
     }
+
+    // [GET] -> /user/get-follower/:username
+    async getFollower(req, res) {
+        // * Get username in params
+        const { username } = req.params;
+
+        try {
+            // * Get user from db
+            const user = await User.findOne({ username }).populate('follower');
+
+            if (!user) {
+                return res
+                    .status(401)
+                    .json({ success: false, msg: 'Không tìm thấy người dùng' });
+            }
+
+            const data = user.follower.map((follower) => {
+                return {
+                    id: follower._id,
+                    fullname: follower.fullname,
+                    username: follower.username,
+                    photoURL: follower.photoURL,
+                };
+            });
+
+            // * Send data
+            return res.status(200).json({
+                success: true,
+                data,
+            });
+        } catch (error) {
+            return res
+                .status(401)
+                .json({ success: false, msg: 'Có lỗi gì đó...!' });
+        }
+    }
+
+    // [GET] -> /user/get-following/:username
+    async getFollowing(req, res) {
+        // * Get username in params
+        const { username } = req.params;
+
+        try {
+            // * Get user from db
+            const user = await User.findOne({ username }).populate('following');
+
+            if (!user) {
+                return res
+                    .status(401)
+                    .json({ success: false, msg: 'Không tìm thấy người dùng' });
+            }
+
+            const data = user.following.map((following) => {
+                return {
+                    id: following._id,
+                    fullname: following.fullname,
+                    username: following.username,
+                    photoURL: following.photoURL,
+                };
+            });
+
+            // * Send data
+            return res.status(200).json({
+                success: true,
+                data,
+            });
+        } catch (error) {
+            return res
+                .status(401)
+                .json({ success: false, msg: 'Có lỗi gì đó...!' });
+        }
+    }
 }
 
 module.exports = new UserController();

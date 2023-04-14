@@ -1,0 +1,21 @@
+.follow {
+    padding-bottom: 1rem;
+
+    &-item {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+    }
+
+    &-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    &-img {
+        width: 2.75rem;
+        aspect-ratio: 1;
+        border-radius: 100%;
+        overflow: hidden;
+    }
+}

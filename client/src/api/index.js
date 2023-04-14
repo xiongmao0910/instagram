@@ -3,7 +3,13 @@ import {
     createUserWithFormData,
     signInWithFormData,
 } from './auth';
-import { getProfile, updateProfile, follow } from './user';
+import {
+    getProfile,
+    updateProfile,
+    follow,
+    getFollower,
+    getFollowing,
+} from './user';
 import { getAllPost, getPost, createPost } from './post';
 
 export {
@@ -13,6 +19,8 @@ export {
     getProfile,
     updateProfile,
     follow,
+    getFollower,
+    getFollowing,
     getAllPost,
     getPost,
     createPost,
