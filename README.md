@@ -29,7 +29,7 @@ Xây dựng ứng dụng instagram sử dụng react và nodejs
 1. Tương tác
 
     - Tìm kiếm người dùng
-    - Theo dõi người dùng khác (x)
+    - Theo dõi người dùng khác: _Với tài khoản public và private_ (x)
     - Bình luận bài viết (x)
     - Thích bài viết (x)
     - Lưu bài viết
@@ -65,12 +65,12 @@ Build instagram app using react and nodejs
 
     - Create new posts
     - Editing articles
-    - Delete articles: _Save deleted articles to the recently deleted collection, after 30 days the system will delete that article if the user does not want to restore_
+    - Delete articles
 
 1. Interaction
 
     - Search for users
-    - Follow other users
+    - Follow other users _With public và private account_
     - Post comments
     - Liked the post
     - Save article

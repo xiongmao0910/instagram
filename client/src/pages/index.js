@@ -8,4 +8,6 @@ export { default as EditProfile } from './account/EditProfile';
 export { default as ChangePassword } from './account/ChangePassword';
 export { default as PrivacyAndSecurity } from './account/PrivacyAndSecurity';
 
+export { default as FollowerReq } from './FollowerReq';
+
 export { default as Setting } from './Setting';

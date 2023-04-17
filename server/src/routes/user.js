@@ -15,5 +15,7 @@ router.get('/get-following/:username', userController.getFollowing);
 router.put('/follow', userController.follow);
 router.put('/unfollow', userController.unfollow);
 router.put('/update', userController.update);
+router.get('/get-request', userController.getFollowReq);
+router.put('/follow-request', userController.followReq);
 
 module.exports = router;

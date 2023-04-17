@@ -229,6 +229,18 @@ const Profile = () => {
                                             edit profile
                                         </Link>
                                     )}
+                                    {user.username === currentUser.username &&
+                                        user.private && (
+                                            <Link
+                                                to="/follower-request"
+                                                className="fw-bold"
+                                                style={{
+                                                    textTransform: 'capitalize',
+                                                }}
+                                            >
+                                                follower request
+                                            </Link>
+                                        )}
                                     {user.username !== currentUser.username &&
                                         !user.isFollowedReq &&
                                         user.isFollowed && (
@@ -297,7 +309,8 @@ const Profile = () => {
                         </header>
                         <div className="profile-main">
                             {(user.username === currentUser.username ||
-                                !user.private) && (
+                                !user.private ||
+                                user.isFollowed) && (
                                 <>
                                     <div className="profile-menu d-flex justify-center items-center">
                                         <div
@@ -322,16 +335,19 @@ const Profile = () => {
                                     )}
                                 </>
                             )}
-                            {user.id !== currentUser.id && user.private && (
-                                <div className="profile-private flow">
-                                    <p className="text-small">
-                                        This Account is Private
-                                    </p>
-                                    <p className="text-small">
-                                        Follow to see their photos and videos.
-                                    </p>
-                                </div>
-                            )}
+                            {user.id !== currentUser.id &&
+                                user.private &&
+                                !user.isFollowed && (
+                                    <div className="profile-private flow">
+                                        <p className="text-small">
+                                            This Account is Private
+                                        </p>
+                                        <p className="text-small">
+                                            Follow to see their photos and
+                                            videos.
+                                        </p>
+                                    </div>
+                                )}
                         </div>
                     </div>
                 </div>

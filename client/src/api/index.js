@@ -9,6 +9,8 @@ import {
     follow,
     getFollower,
     getFollowing,
+    getFollowReq,
+    followReq,
 } from './user';
 import {
     getAllPost,
@@ -28,6 +30,8 @@ export {
     follow,
     getFollower,
     getFollowing,
+    getFollowReq,
+    followReq,
     getAllPost,
     getPost,
     createPost,

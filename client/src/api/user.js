@@ -82,4 +82,42 @@ async function getFollowing(username) {
     }
 }
 
-export { getProfile, updateProfile, follow, getFollower, getFollowing };
+async function getFollowReq(id) {
+    try {
+        const response = await privateInstance.get('/user/get-request', {
+            headers: {
+                currentUserId: id,
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return error.response.data;
+    }
+}
+
+async function followReq(data) {
+    console.log(data);
+    try {
+        const response = await privateInstance.put(
+            '/user/follow-request',
+            JSON.stringify(data)
+        );
+
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return error.response.data;
+    }
+}
+
+export {
+    getProfile,
+    updateProfile,
+    follow,
+    getFollower,
+    getFollowing,
+    getFollowReq,
+    followReq,
+};

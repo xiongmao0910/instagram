@@ -11,6 +11,7 @@ import {
     EditProfile,
     ChangePassword,
     PrivacyAndSecurity,
+    FollowerReq,
 } from '../pages';
 import AuthRoutes from './AuthRoutes';
 import PrivateRoutes from './PrivateRoutes';
@@ -27,6 +28,7 @@ const AppRoutes = () => {
                 <Route element={<Wrapper />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/:username/" element={<Profile />} />
+                    <Route path="/follower-request" element={<FollowerReq />} />
 
                     <Route element={<Setting />}>
                         <Route

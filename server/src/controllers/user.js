@@ -558,6 +558,104 @@ class UserController {
                 .json({ success: false, msg: 'Có lỗi gì đó...!' });
         }
     }
+
+    // [GET] -> /user/get-request
+    async getFollowReq(req, res) {
+        // * Get current user id in headers
+        const { currentuserid } = req.headers;
+
+        try {
+            const user = await User.findById(currentuserid).populate(
+                'followerReq'
+            );
+
+            const data = user.followerReq.map((u) => {
+                return {
+                    id: u._id,
+                    fullname: u.fullname,
+                    username: u.username,
+                    photoURL: u.photoURL,
+                };
+            });
+
+            return res.status(200).json({
+                success: true,
+                data,
+            });
+        } catch (error) {
+            return res
+                .status(401)
+                .json({ success: false, msg: 'Có lỗi gì đó...!' });
+        }
+    }
+
+    // [PUT] -> /user/follow-request
+    async followReq(req, res) {
+        // * Get data from client
+        const { followerId, followingId, accept } = req.body;
+
+        try {
+            if (accept) {
+                const follower = await User.findOneAndUpdate(
+                    { _id: followerId },
+                    {
+                        $pull: { followerReq: followingId },
+                        $push: { follower: followingId },
+                    },
+                    {
+                        new: true,
+                    }
+                );
+
+                const following = await User.findOneAndUpdate(
+                    { _id: followingId },
+                    {
+                        $pull: { followingReq: followerId },
+                        $push: { following: followerId },
+                    },
+                    {
+                        new: true,
+                    }
+                );
+
+                return res.status(201).json({
+                    success: true,
+                    msg: `Bạn đã chấp nhận theo dõi từ ${following.username}.`,
+                });
+            }
+
+            if (!accept) {
+                await User.findOneAndUpdate(
+                    { _id: followerId },
+                    {
+                        $pull: { followerReq: followingId },
+                    },
+                    {
+                        new: true,
+                    }
+                );
+
+                const following = await User.findOneAndUpdate(
+                    { _id: followingId },
+                    {
+                        $pull: { followingReq: followerId },
+                    },
+                    {
+                        new: true,
+                    }
+                );
+
+                return res.status(201).json({
+                    success: true,
+                    msg: `Bạn đã từ chối yêu cầu theo dõi từ ${following.username}.`,
+                });
+            }
+        } catch (error) {
+            return res
+                .status(401)
+                .json({ success: false, msg: 'Có lỗi gì đó...!' });
+        }
+    }
 }
 
 module.exports = new UserController();
