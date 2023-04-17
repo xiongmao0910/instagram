@@ -10,29 +10,30 @@ Xây dựng ứng dụng instagram sử dụng react và nodejs
 
 1. Authentication:
 
-    - Đăng ký
-    - Đăng nhập
-    - Đăng xuất
+    - Đăng ký (x)
+    - Đăng nhập (x)
+    - Đăng xuất (x)
 
 1. Quản lý hồ sơ người dùng:
 
-    - Cập nhật thông tin người dùng
-    - Xem thông tin chi tiết của người dùng
-    - Xem các bài viết được tạo bởi người dùng
+    - Cập nhật thông tin người dùng (x)
+    - Xem thông tin chi tiết của người dùng (x)
+    - Xem các bài viết được tạo bởi người dùng (x)
 
 1. Bài viết
 
-    - Tạo mới bài viết
+    - Tạo mới bài viết (x)
     - Chỉnh sửa bài viết
-    - Xóa bài viết: _Lưu bài viết được xóa vào collection xóa gần đây, sau 30 ngày hệ thống sẽ thực hiện xóa bài viết đó nếu người dùng không muốn khôi phục_
+    - Xóa bài viết
 
 1. Tương tác
 
     - Tìm kiếm người dùng
-    - Theo dõi người dùng khác
-    - Bình luận bài viết
-    - Thích bài viết
+    - Theo dõi người dùng khác (x)
+    - Bình luận bài viết (x)
+    - Thích bài viết (x)
     - Lưu bài viết
+    - Xem danh sách người đang theo dõi, người theo dõi (tài khoản public / tài khoản đang follow) (x)
 
 ---
 
@@ -73,3 +74,4 @@ Build instagram app using react and nodejs
     - Post comments
     - Liked the post
     - Save article
+    - See followers, following list of public / following user.

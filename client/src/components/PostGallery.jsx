@@ -81,7 +81,10 @@ const PostGallery = ({ posts }) => {
                     <div className="modal-close" onClick={handleClosePostModal}>
                         <Close />
                     </div>
-                    <PostModal id={modalData.postId} />
+                    <PostModal
+                        id={modalData.postId}
+                        setModalData={setModalData}
+                    />
                 </Modal>
             )}
         </>

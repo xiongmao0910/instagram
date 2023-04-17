@@ -37,4 +37,47 @@ async function createPost(data) {
     }
 }
 
-export { getAllPost, getPost, createPost };
+async function likePost(uri, data) {
+    try {
+        const response = await privateInstance.post(
+            `/post/${uri}`,
+            JSON.stringify(data)
+        );
+
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+async function getListUserLikePost(id) {
+    try {
+        const response = await privateInstance.get(`/post/list-like/${id}`);
+
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+async function commentPost(data) {
+    try {
+        const response = await privateInstance.post(
+            '/post/comment',
+            JSON.stringify(data)
+        );
+
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export {
+    getAllPost,
+    getPost,
+    createPost,
+    likePost,
+    getListUserLikePost,
+    commentPost,
+};

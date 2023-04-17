@@ -10,7 +10,14 @@ import {
     getFollower,
     getFollowing,
 } from './user';
-import { getAllPost, getPost, createPost } from './post';
+import {
+    getAllPost,
+    getPost,
+    createPost,
+    likePost,
+    getListUserLikePost,
+    commentPost,
+} from './post';
 
 export {
     getUserByToken,
@@ -24,4 +31,7 @@ export {
     getAllPost,
     getPost,
     createPost,
+    likePost,
+    getListUserLikePost,
+    commentPost,
 };

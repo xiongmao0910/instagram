@@ -60,9 +60,18 @@ class PostController {
             // * Get post
             const post = await Post.findById(id).populate('userId');
             // * Get all comment of post
-            const comments = await Comment.find({ postId: id }).populate(
+            const commentsList = await Comment.find({ postId: id }).populate(
                 'userId'
             );
+
+            const comments = commentsList.map((comment) => {
+                return {
+                    id: comment._id,
+                    description: comment.description,
+                    username: comment.userId.username,
+                    userPhotoURL: comment.userId.photoURL,
+                };
+            });
 
             const isLiked = post.likes.includes(currentuserid);
 
@@ -112,8 +121,131 @@ class PostController {
             });
         }
     }
-}
 
-// const posts = await Post.find({ userId }, '-__v').populate('userId');
+    // [POST] -> path: /post/like
+    async like(req, res) {
+        // * Get data from client
+        const { userId, postId } = req.body;
+
+        // * Save list user like a post to db
+        try {
+            const post = await Post.findOneAndUpdate(
+                { _id: postId },
+                {
+                    $push: { likes: userId },
+                },
+                { new: true }
+            );
+
+            return res.status(201).json({
+                success: true,
+                msg: 'Bạn đã thích bài viết',
+                data: {
+                    likeCount: post.likes.length,
+                    isLiked: true,
+                },
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                msg: 'Lỗi không thể thích bài viết!',
+            });
+        }
+    }
+
+    // [POST] -> path: /post/unlike
+    async unlike(req, res) {
+        // * Get data from client
+        const { userId, postId } = req.body;
+
+        // * Save list user like a post to db
+        try {
+            const post = await Post.findOneAndUpdate(
+                { _id: postId },
+                {
+                    $pull: { likes: userId },
+                },
+                { new: true }
+            );
+
+            return res.status(201).json({
+                success: true,
+                msg: 'Bạn đã bỏ thích bài viết',
+                data: {
+                    likeCount: post.likes.length,
+                    isLiked: false,
+                },
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                msg: 'Lỗi không thể bỏ thích bài viết!',
+            });
+        }
+    }
+
+    // [POST] -> path: /post/comment
+    async comment(req, res) {
+        // * Get data from client
+        const { postId, userId, description } = req.body;
+
+        try {
+            const newComment = new Comment({ description, postId, userId });
+            await newComment.save();
+            const comment = await newComment.populate('userId');
+
+            const data = {
+                id: comment._id,
+                description: comment.description,
+                username: comment.userId.username,
+                userPhotoURL: comment.userId.photoURL,
+            };
+
+            return res.status(201).json({
+                success: true,
+                msg: 'Bạn đã bình luận bài viết',
+                data,
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                msg: 'Lỗi không thể bình luận bài viết!',
+            });
+        }
+    }
+
+    // [GET] -> path: /post/list-like/:postId
+    async getListLike(req, res) {
+        // * Get post id from params
+        const { postId } = req.params;
+
+        try {
+            // * Get post
+            const post = await Post.findById(postId).populate('likes');
+
+            const likes = post.likes.map((like) => {
+                return {
+                    id: like._id,
+                    fullname: like.fullname,
+                    username: like.username,
+                    photoURL: like.photoURL,
+                };
+            });
+
+            // * Return data to client
+            return res.status(200).json({
+                success: true,
+                data: {
+                    likes,
+                },
+            });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                msg: 'Lỗi không thể lấy dữ liệu bài viết!',
+            });
+        }
+    }
+}
 
 module.exports = new PostController();

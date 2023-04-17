@@ -72,7 +72,7 @@ const FollowModal = ({ username, title, type, setModal }) => {
             {loading && <p>Loading...</p>}
             {!loading && (
                 <>
-                    {!follows.length && (
+                    {follows.length === 0 && (
                         <div
                             className="flow"
                             style={{
@@ -80,22 +80,28 @@ const FollowModal = ({ username, title, type, setModal }) => {
                                 paddingBlock: '2rem',
                             }}
                         >
-                            <div className="modal-icon fs-600">
+                            <div className="fs-600">
                                 <AddUser />
                             </div>
-                            <div className="fs-400 fw-bold">Followers</div>
+                            <div className="fs-400 fw-bold">
+                                {type === 'follower'
+                                    ? 'Followers'
+                                    : 'People you follow'}
+                            </div>
                             <p>
-                                You'll see all the people who follow you here.
+                                {type === 'follower'
+                                    ? "You'll see all the people who follow you here."
+                                    : "Once you follow people, you'll see them here."}
                             </p>
                         </div>
                     )}
-                    {follows.length && (
-                        <div className="follow">
+                    {follows.length > 0 && (
+                        <div className="list">
                             {follows.map((follow) => (
-                                <div className="follow-item">
-                                    <div className="follow-info">
+                                <div className="list-item" key={follow.id}>
+                                    <div className="list-info">
                                         <div
-                                            className="follow-img"
+                                            className="list-img"
                                             onClick={() =>
                                                 handleGoProfile(follow.username)
                                             }

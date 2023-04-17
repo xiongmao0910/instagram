@@ -108,3 +108,8 @@ ul,
 ol {
     list-style: none;
 }
+
+[data-visible='false'] {
+    opacity: 0.8;
+    pointer-events: none;
+}

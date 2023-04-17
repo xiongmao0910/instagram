@@ -38,8 +38,6 @@
     &-comments {
         --flow-spacer: 1rem;
         flex: 1;
-        display: grid;
-        gap: 1rem;
         overflow: auto;
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
