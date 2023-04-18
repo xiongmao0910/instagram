@@ -98,6 +98,9 @@ const Sidebar = () => {
             // TODO Close modal
             handleCloseModal();
 
+            // TODO Reload page
+            window.location.reload(true);
+
             return;
         }
 

@@ -12,7 +12,9 @@ class PostController {
 
         try {
             // * Get data from db
-            const postsArr = await Post.find({ userId }, '-__v');
+            const postsArr = await Post.find({ userId }, '-__v').sort({
+                createdAt: -1,
+            });
 
             const postsWithCommentCount = await Promise.all(
                 [...postsArr].map(async (post) => {
@@ -243,6 +245,49 @@ class PostController {
             return res.status(500).json({
                 success: false,
                 msg: 'Lỗi không thể lấy dữ liệu bài viết!',
+            });
+        }
+    }
+
+    // [PUT] -> /post/edit/:postId
+    async edit(req, res) {
+        // * Get data from client
+        const { id, ...data } = req.body;
+
+        const dataUpdate = { ...data };
+
+        try {
+            await Post.findOneAndUpdate({ _id: id }, dataUpdate);
+
+            return res.status(201).json({
+                success: true,
+                msg: 'Bài viết đã được cập nhật!',
+            });
+        } catch (error) {
+            return res.status(401).json({
+                success: false,
+                msg: 'Chỉnh sửa bài viết thất bại...!',
+            });
+        }
+    }
+
+    // [DELETE] -> /post/delete/:id
+    async delete(req, res) {
+        // * Get data from params
+        const { id } = req.params;
+
+        try {
+            await Post.findOneAndDelete({ _id: id });
+            await Comment.deleteMany({ postId: id });
+
+            return res.status(201).json({
+                success: true,
+                msg: 'Bài viết đã được xóa!',
+            });
+        } catch (error) {
+            return res.status(401).json({
+                success: false,
+                msg: 'Xóa bài viết thất bại...!',
             });
         }
     }

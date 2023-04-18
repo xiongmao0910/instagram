@@ -15,5 +15,7 @@ router.post('/create', postController.create);
 router.post('/like', postController.like);
 router.post('/unlike', postController.unlike);
 router.post('/comment', postController.comment);
+router.put('/edit', postController.edit);
+router.delete('/delete/:id', postController.delete);
 
 module.exports = router;

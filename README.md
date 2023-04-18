@@ -23,8 +23,8 @@ Xây dựng ứng dụng instagram sử dụng react và nodejs
 1. Bài viết
 
     - Tạo mới bài viết (x)
-    - Chỉnh sửa bài viết
-    - Xóa bài viết
+    - Chỉnh sửa bài viết (x)
+    - Xóa bài viết (x)
 
 1. Tương tác
 
@@ -32,7 +32,6 @@ Xây dựng ứng dụng instagram sử dụng react và nodejs
     - Theo dõi người dùng khác: _Với tài khoản public và private_ (x)
     - Bình luận bài viết (x)
     - Thích bài viết (x)
-    - Lưu bài viết
     - Xem danh sách người đang theo dõi, người theo dõi (tài khoản public / tài khoản đang follow) (x)
 
 ---
@@ -73,5 +72,4 @@ Build instagram app using react and nodejs
     - Follow other users _With public và private account_
     - Post comments
     - Liked the post
-    - Save article
     - See followers, following list of public / following user.

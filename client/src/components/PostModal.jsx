@@ -4,15 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { More, Like, Comments, Share, Label } from '@icon-park/react';
 
 // Import components
-import { getPost, likePost, commentPost } from '../api';
+import { getPost, likePost, commentPost, editPost, deletePost } from '../api';
 import { useAuth } from '../contexts';
 import Slide from './Slide';
+import Modal from './Modal';
 import LikeModal from './LikeModal';
 
 const PostModal = ({ id, setModalData }) => {
     const { currentUser } = useAuth();
 
     const commentRef = useRef();
+    const captionRef = useRef();
 
     const navigate = useNavigate();
 
@@ -20,6 +22,7 @@ const PostModal = ({ id, setModalData }) => {
     const [collapse, setCollapse] = useState(false);
     const [loading, setLoading] = useState(true);
     const [isOpen, setIsOpen] = useState(false);
+    const [isOpenEdit, setIsOpenEdit] = useState(false);
 
     /**
      * Method
@@ -148,6 +151,73 @@ const PostModal = ({ id, setModalData }) => {
         commentRef.current.value = '';
     }
 
+    function handleShowEditModal() {
+        // TODO Show edit modal
+        setIsOpenEdit(true);
+
+        setCollapse(false);
+    }
+
+    function handleCaptionChange() {
+        if (post.caption === captionRef.current.value) {
+            document
+                .querySelector('#editBtn')
+                .setAttribute('data-visible', 'false');
+        }
+
+        if (post.caption !== captionRef.current.value) {
+            document
+                .querySelector('#editBtn')
+                .setAttribute('data-visible', true);
+        }
+    }
+
+    async function handleEdit() {
+        const caption = captionRef.current.value;
+
+        const { success, msg } = await editPost({ id: post._id, caption });
+
+        if (success) {
+            // TODO Notification
+            console.log(msg);
+
+            // TODO Update post state
+            setPost((prev) => {
+                return {
+                    ...prev,
+                    caption,
+                };
+            });
+
+            // TODO Hide modal edit
+            setIsOpenEdit(false);
+        }
+
+        if (!success) {
+            // TODO Notification
+            console.log(msg);
+
+            captionRef.current.focus();
+        }
+    }
+
+    async function handleDelete() {
+        const { success, msg } = await deletePost(post._id);
+
+        if (success) {
+            // TODO Notification
+            console.log(msg);
+
+            // TODO Reload page
+            window.location.reload(true);
+        }
+
+        if (!success) {
+            // TODO Notification
+            console.log(msg);
+        }
+    }
+
     /**
      * Side effect
      */
@@ -206,10 +276,18 @@ const PostModal = ({ id, setModalData }) => {
                                     className="dropdown-menu"
                                     data-collapse={collapse}
                                 >
-                                    <div className="dropdown-item text-red-500">
+                                    <div
+                                        className="dropdown-item text-red-500"
+                                        onClick={handleDelete}
+                                    >
                                         delete
                                     </div>
-                                    <div className="dropdown-item">edit</div>
+                                    <div
+                                        className="dropdown-item"
+                                        onClick={handleShowEditModal}
+                                    >
+                                        edit
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -356,6 +434,60 @@ const PostModal = ({ id, setModalData }) => {
                     setIsOpen={setIsOpen}
                     handleGoProfile={handleGoProfile}
                 />
+            )}
+            {isOpenEdit && (
+                <Modal size="xs">
+                    <div className="write d-flex">
+                        <div className="write-media">
+                            <Slide media={post.media} />
+                        </div>
+                        <div className="write-content flow">
+                            <div className="d-flex write-info">
+                                <div className="write-img">
+                                    <img
+                                        className="img-fluid"
+                                        src={
+                                            currentUser.photoURL
+                                                ? currentUser.photoURL
+                                                : defaultAvatar
+                                        }
+                                        alt={currentUser.username}
+                                    />
+                                </div>
+                                <div className="write-username fw-bold">
+                                    {currentUser.username}
+                                </div>
+                            </div>
+                            <textarea
+                                name="caption"
+                                id="caption"
+                                ref={captionRef}
+                                onChange={handleCaptionChange}
+                                className="write-control"
+                                defaultValue={post.caption}
+                                placeholder="Write a caption..."
+                            ></textarea>
+                            <div className="write-action d-flex items-center">
+                                <button
+                                    button-variant="contained"
+                                    button-color="blue"
+                                    id="editBtn"
+                                    onClick={handleEdit}
+                                    data-visible={false}
+                                >
+                                    done
+                                </button>
+                                <button
+                                    onClick={() => setIsOpenEdit(false)}
+                                    button-variant="contained"
+                                    button-color="red"
+                                >
+                                    discard
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
             )}
         </>
     );

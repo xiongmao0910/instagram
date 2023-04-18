@@ -99,6 +99,21 @@
         &-item:hover &-info {
             opacity: 1;
         }
+
+        &-action {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--clr-white);
+
+            span {
+                line-height: 1;
+                & > * {
+                    display: inline-block;
+                    line-height: 0.64;
+                }
+            }
+        }
     }
 
     &-count {

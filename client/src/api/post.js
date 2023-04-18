@@ -73,6 +73,29 @@ async function commentPost(data) {
     }
 }
 
+async function editPost(data) {
+    try {
+        const response = await privateInstance.put(
+            `/post/edit`,
+            JSON.stringify(data)
+        );
+
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+async function deletePost(id) {
+    try {
+        const response = await privateInstance.delete(`/post/delete/${id}`);
+
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
 export {
     getAllPost,
     getPost,
@@ -80,4 +103,6 @@ export {
     likePost,
     getListUserLikePost,
     commentPost,
+    editPost,
+    deletePost,
 };

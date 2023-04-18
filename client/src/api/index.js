@@ -19,6 +19,8 @@ import {
     likePost,
     getListUserLikePost,
     commentPost,
+    editPost,
+    deletePost,
 } from './post';
 
 export {
@@ -38,4 +40,6 @@ export {
     likePost,
     getListUserLikePost,
     commentPost,
+    editPost,
+    deletePost,
 };
