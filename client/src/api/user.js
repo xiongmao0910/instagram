@@ -98,10 +98,23 @@ async function getFollowReq(id) {
 }
 
 async function followReq(data) {
-    console.log(data);
     try {
         const response = await privateInstance.put(
             '/user/follow-request',
+            JSON.stringify(data)
+        );
+
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return error.response.data;
+    }
+}
+
+async function searchUser(data) {
+    try {
+        const response = await privateInstance.post(
+            '/user/search',
             JSON.stringify(data)
         );
 
@@ -120,4 +133,5 @@ export {
     getFollowing,
     getFollowReq,
     followReq,
+    searchUser,
 };

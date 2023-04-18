@@ -91,7 +91,7 @@ const FollowerReq = () => {
                             {followerReqs.length > 0 &&
                                 followerReqs.map((req) => (
                                     <div
-                                        className="list-item bg-white"
+                                        className="list-item list-item-color"
                                         style={{ borderRadius: '0.25rem' }}
                                         key={req.id}
                                     >

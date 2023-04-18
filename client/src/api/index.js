@@ -11,6 +11,7 @@ import {
     getFollowing,
     getFollowReq,
     followReq,
+    searchUser,
 } from './user';
 import {
     getAllPost,
@@ -42,4 +43,5 @@ export {
     commentPost,
     editPost,
     deletePost,
+    searchUser,
 };

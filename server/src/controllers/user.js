@@ -656,6 +656,38 @@ class UserController {
                 .json({ success: false, msg: 'Có lỗi gì đó...!' });
         }
     }
+
+    // [POST] -> /user/search
+    async search(req, res) {
+        // * Get data from client
+        const { query } = req.body;
+
+        const regex = new RegExp(query);
+
+        try {
+            const users = await User.find({
+                $or: [
+                    { username: { $regex: regex, $options: 'si' } },
+                    { fullname: { $regex: regex, $options: 'si' } },
+                ],
+            });
+
+            const data = users.map((user) => {
+                return {
+                    id: user._id,
+                    fullname: user.fullname,
+                    username: user.username,
+                    photoURL: user.photoURL,
+                };
+            });
+
+            return res.status(200).json({ success: true, data });
+        } catch (error) {
+            return res
+                .status(401)
+                .json({ success: false, msg: 'Có lỗi gì đó...!' });
+        }
+    }
 }
 
 module.exports = new UserController();

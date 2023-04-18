@@ -4,6 +4,11 @@
     &-item {
         padding: 0.5rem 1rem;
         cursor: pointer;
+
+        &-color {
+            background-color: var(--bg-list-item);
+            border-radius: 0.25rem;
+        }
     }
 
     &-info {

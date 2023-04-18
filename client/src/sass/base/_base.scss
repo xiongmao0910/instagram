@@ -27,6 +27,8 @@ html.light {
 
     --clr-br-setting: var(--clr-grey-100);
     --clr-br-setting-option: var(--clr-black);
+
+    --bg-list-item: #ffffff;
 }
 
 html.dark {
@@ -55,6 +57,8 @@ html.dark {
 
     --clr-br-setting: var(--clr-grey-500);
     --clr-br-setting-option: var(--clr-white);
+
+    --bg-list-item: var(--clr-grey-500);
 }
 
 *,

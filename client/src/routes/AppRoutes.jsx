@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 // Import components
 import {
     Home,
+    Search,
     LogIn,
     SignUp,
     Profile,
@@ -27,6 +28,7 @@ const AppRoutes = () => {
             <Route element={<PrivateRoutes />}>
                 <Route element={<Wrapper />}>
                     <Route path="/" element={<Home />} />
+                    <Route path="/search" element={<Search />} />
                     <Route path="/:username/" element={<Profile />} />
                     <Route path="/follower-request" element={<FollowerReq />} />
 

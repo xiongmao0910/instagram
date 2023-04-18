@@ -1,0 +1,14 @@
+.search {
+    width: min(100%, 30rem);
+    margin-inline: auto;
+
+    &-header {
+        margin-bottom: 1rem;
+    }
+
+    &-input {
+        width: 100%;
+        border: none;
+        padding: 0.5rem 1rem;
+    }
+}

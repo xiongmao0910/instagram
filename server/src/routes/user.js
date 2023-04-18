@@ -17,5 +17,6 @@ router.put('/unfollow', userController.unfollow);
 router.put('/update', userController.update);
 router.get('/get-request', userController.getFollowReq);
 router.put('/follow-request', userController.followReq);
+router.post('/search', userController.search);
 
 module.exports = router;

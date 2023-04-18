@@ -28,7 +28,7 @@ Xây dựng ứng dụng instagram sử dụng react và nodejs
 
 1. Tương tác
 
-    - Tìm kiếm người dùng
+    - Tìm kiếm người dùng (x)
     - Theo dõi người dùng khác: _Với tài khoản public và private_ (x)
     - Bình luận bài viết (x)
     - Thích bài viết (x)
