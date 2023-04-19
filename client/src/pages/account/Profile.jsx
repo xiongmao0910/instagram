@@ -133,7 +133,11 @@ const Profile = () => {
     }
 
     async function handleShowFollowerList() {
-        if (currentUser.username !== user.username && !user.isFollowed) {
+        if (
+            currentUser.username !== user.username &&
+            !user.isFollowed &&
+            user.private
+        ) {
             console.log('you cant see user follower list');
             return;
         }
@@ -142,8 +146,12 @@ const Profile = () => {
     }
 
     async function handleShowFollowingList() {
-        if (currentUser.username !== user.username && !user.isFollowed) {
-            console.log('you cant see user follower list');
+        if (
+            currentUser.username !== user.username &&
+            !user.isFollowed &&
+            user.private
+        ) {
+            console.log('you cant see user following list');
             return;
         }
 
@@ -280,7 +288,9 @@ const Profile = () => {
                                         className="profile-count-follower"
                                         data-cursor={
                                             currentUser.username ===
-                                                user.username || user.isFollowed
+                                                user.username ||
+                                            user.isFollowed ||
+                                            !user.private
                                                 ? 'true'
                                                 : ''
                                         }
@@ -292,7 +302,9 @@ const Profile = () => {
                                         className="profile-count-following"
                                         data-cursor={
                                             currentUser.username ===
-                                                user.username || user.isFollowed
+                                                user.username ||
+                                            user.isFollowed ||
+                                            !user.private
                                                 ? 'true'
                                                 : ''
                                         }

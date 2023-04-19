@@ -1,0 +1,45 @@
+.home {
+    width: min(100%, 39.375rem);
+    margin-inline: auto;
+
+    &-list {
+        width: min(100%, 29.375rem);
+        margin-inline: auto;
+    }
+
+    &-item {
+        --gap: 0.25rem;
+        border-bottom: thin solid var(--clr-br-home-item);
+
+        &-info {
+            padding-block: 0.5rem;
+        }
+
+        &-img {
+            width: 2rem;
+            aspect-ratio: 1;
+            border-radius: 100%;
+            overflow: hidden;
+        }
+
+        &-icon {
+            cursor: pointer;
+            line-height: 0.95;
+
+            & > * {
+                display: inline-block;
+                line-height: 0.64;
+                font-size: var(--fs-400);
+            }
+        }
+
+        &-action {
+            --gap: 1rem;
+            padding-block: 1rem;
+        }
+
+        &-detail {
+            padding-bottom: 0.5rem;
+        }
+    }
+}

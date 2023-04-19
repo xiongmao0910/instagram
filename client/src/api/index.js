@@ -23,6 +23,7 @@ import {
     editPost,
     deletePost,
 } from './post';
+import { home } from './home';
 
 export {
     getUserByToken,
@@ -44,4 +45,5 @@ export {
     editPost,
     deletePost,
     searchUser,
+    home,
 };

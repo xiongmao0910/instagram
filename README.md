@@ -34,6 +34,11 @@ Xây dựng ứng dụng instagram sử dụng react và nodejs
     - Thích bài viết (x)
     - Xem danh sách người đang theo dõi, người theo dõi (tài khoản public / tài khoản đang follow) (x)
 
+### Những điểm chưa hoàn thiện
+
+-   Khi like bài viết khi ở trang cá nhân vẫn chưa cập nhật lại số lượng like của bài viết mà người dùng đã like
+-   Trang chủ chưa có các tính năng thích, bình luận bài viết
+
 ---
 
 ---
